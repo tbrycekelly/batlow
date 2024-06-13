@@ -9,6 +9,13 @@ If you already have `devtools` package installed, then just run the following ot
 devtools::install_github('tbrycekelly/batlow)
 ```
 
+Usage is quite easy. To retreive colors, just call the palette along with how manu colors you want:
+```r
+batlow(16)
+lisbon(8)
+vik(128)
+```
+
 See the palette offerings below:
 ![Sequential color palettes, page 1](docs/sequential-page-1.png)
 ![Sequential color palettes, page 2](docs/sequential-page-2.png)
