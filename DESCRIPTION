@@ -1,14 +1,22 @@
 Package: batlow
 Title: Batlow Color Palettes
-Version: 1.0
+Version: 1.0.1
+Author: Thomas Kelly [aut, cre] (<https://orcid.org/0000-0001-6285-1925>)
+Maintainer: Thomas Kelly <tkelly@icyseascolab.io>
 Authors@R: 
-    person("Thomas", "Kelly", , "tbkelly@alaska.edu", role = c("aut", "cre"),
+    person("Thomas", "Kelly", email = "tkelly@icyseascolab.io", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-6285-1925"))
 Description: A simple R implementation and front-end for the excellent set of color palettes curated by Fabio Crameri (https://www.fabiocrameri.ch/batlow/). Please be sure to give the original source all credit and blame any issues on me (Thomas Kelly).
 License: MIT + file LICENSE
 Encoding: UTF-8
+Imports:
+    grDevices,
+    utils
+Suggests:
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Depends: 
-    R (>= 2.10)
+    R (>= 3.5.0)
 LazyData: true

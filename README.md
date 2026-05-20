@@ -3,18 +3,34 @@ This is an easy to use wrapper package for the wonderful, scientifically accurat
 
 ### Quick Start
 
-If you already have `devtools` package installed, then just run the following otherwise install it with `install.packages(devtools)`.
+Install the package from GitHub with `remotes`, then either attach it with `library(batlow)` or call palette functions with the `batlow::` prefix.
 
 ```r
-devtools::install_github('tbrycekelly/batlow)
+install.packages("remotes")
+remotes::install_github("tbrycekelly/batlow")
 ```
 
-Usage is quite easy. To retreive colors, just call the palette along with how manu colors you want:
+To retrieve colors after attaching the package:
 ```r
+library(batlow)
+
 batlow(16)
 lisbon(8)
 vik(128)
 ```
+
+If you prefer not to attach the package, use explicit namespace calls:
+```r
+batlow::batlow(16)
+batlow::lisbon(8)
+batlow::vik(128)
+```
+
+### About
+
+This package is maintained by Thomas Kelly, who developed `batlow` to make Fabio Crameri's scientific color palettes easy to use in base R workflows and other non-`ggplot2` contexts.
+
+Icy Seas Co-Laboratory LLC supports practical, reproducible scientific computing and data analysis tools, and `batlow` is part of that broader commitment to accessible research software.
 
 See the palette offerings below:
 ![Sequential color palettes, page 1](docs/sequential-page-1.png)

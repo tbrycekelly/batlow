@@ -1,247 +1,210 @@
-#' @title Acton
-#' @importFrom grDevices colorRampPalette
-#' @export
-acton = function(n) {
-  dat = palette$acton
+# Internal cache for palette data so wrappers work via `batlow::foo()`
+# without requiring the package to be attached.
+.batlow_env <- new.env(parent = emptyenv())
+
+.get_palette_data <- function() {
+  if (!exists("palette", envir = .batlow_env, inherits = FALSE)) {
+    utils::data("palette", package = "batlow", envir = .batlow_env)
+  }
+
+  if (!exists("palette", envir = .batlow_env, inherits = FALSE)) {
+    stop("Could not load `palette` data from the batlow package.", call. = FALSE)
+  }
+
+  get("palette", envir = .batlow_env, inherits = FALSE)
+}
+
+.validate_n <- function(n) {
+  if (!is.numeric(n) || length(n) != 1L || is.na(n) || !is.finite(n) ||
+      n < 0 || n > .Machine$integer.max || n != trunc(n)) {
+    stop("`n` must be a single non-negative integer.", call. = FALSE)
+  }
+
+  as.integer(n)
+}
+
+.palette_wrapper <- function(name, n) {
+  dat <- .get_palette_data()[[name]]
+
+  if (is.null(dat)) {
+    stop("Unknown palette `", name, "`.", call. = FALSE)
+  }
+
+  n <- .validate_n(n)
+
   grDevices::colorRampPalette(dat)(n)
 }
 
-#' @title Bam
-#' @export
-bam = function(n) {
-  dat = palette$bam
-  grDevices::colorRampPalette(dat)(n)
-}
+#' Batlow Palette Functions
+#'
+#' Generate a vector of colors from one of the included batlow palettes.
+#'
+#' @name batlow_palettes
+#' @param n A single non-negative integer giving the number of colors to
+#'   generate.
+#' @return A character vector of hex colors.
+#' @examples
+#' acton(8)
+#' batlow(16)
+#' vik(32)
+NULL
 
-#' @title Bamako
+#' @rdname batlow_palettes
 #' @export
-bamako = function(n) {
-  dat = palette$bamako
-  grDevices::colorRampPalette(dat)(n)
-}
+acton <- function(n) .palette_wrapper("acton", n)
 
-#' @title Bam0
+#' @rdname batlow_palettes
 #' @export
-bam0 = function(n) {
-  dat = palette$bamO
-  grDevices::colorRampPalette(dat)(n)
-}
+bam <- function(n) .palette_wrapper("bam", n)
 
-#' @title Batlow
+#' @rdname batlow_palettes
 #' @export
-batlow = function(n) {
-  dat = palette$batlow
-  grDevices::colorRampPalette(dat)(n)
-}
+bam0 <- function(n) .palette_wrapper("bamO", n)
 
-#' @title BatlowK
+#' @rdname batlow_palettes
 #' @export
-batlowK = function(n) {
-  dat = palette$batlowK
-  grDevices::colorRampPalette(dat)(n)
-}
+bamako <- function(n) .palette_wrapper("bamako", n)
 
-#' @title BatlowW
+#' @rdname batlow_palettes
 #' @export
-batlowW = function(n) {
-  dat = palette$batlowW
-  grDevices::colorRampPalette(dat)(n)
-}
+batlow <- function(n) .palette_wrapper("batlow", n)
 
-#' @title Berlin
+#' @rdname batlow_palettes
 #' @export
-berlin = function(n) {
-  dat = palette$berlin
-  grDevices::colorRampPalette(dat)(n)
-}
+batlowK <- function(n) .palette_wrapper("batlowK", n)
 
+#' @rdname batlow_palettes
 #' @export
-bilbao = function(n) {
-  dat = palette$bilbao
-  grDevices::colorRampPalette(dat)(n)
-}
+batlowW <- function(n) .palette_wrapper("batlowW", n)
 
+#' @rdname batlow_palettes
 #' @export
-broc = function(n) {
-  dat = palette$broc
-  grDevices::colorRampPalette(dat)(n)
-}
+berlin <- function(n) .palette_wrapper("berlin", n)
 
+#' @rdname batlow_palettes
 #' @export
-broc0 = function(n) {
-  dat = palette$brocO
-  grDevices::colorRampPalette(dat)(n)
-}
+bilbao <- function(n) .palette_wrapper("bilbao", n)
 
+#' @rdname batlow_palettes
 #' @export
-buda = function(n) {
-  dat = palette$buda
-  grDevices::colorRampPalette(dat)(n)
-}
-#' @export
-bukavu = function(n) {
-  dat = palette$bukavu
-  grDevices::colorRampPalette(dat)(n)
-}
-#' @export
-cork = function(n) {
-  dat = palette$cork
-  grDevices::colorRampPalette(dat)(n)
-}
-#' @export
-corkO = function(n) {
-  dat = palette$corkO
-  grDevices::colorRampPalette(dat)(n)
-}
-#' @export
-davos = function(n) {
-  dat = palette$davos
-  grDevices::colorRampPalette(dat)(n)
-}
-#' @export
-devon = function(n) {
-  dat = palette$devon
-  grDevices::colorRampPalette(dat)(n)
-}
-#' @export
-fes = function(n) {
-  dat = palette$fes
-  grDevices::colorRampPalette(dat)(n)
-}
-#' @export
-glasgow = function(n) {
-  dat = palette$glasgow
-  grDevices::colorRampPalette(dat)(n)
-}
-#' @export
-grayC = function(n) {
-  dat = palette$grayC
-  grDevices::colorRampPalette(dat)(n)
-}
-#' @export
-hawaii = function(n) {
-  dat = palette$hawaii
-  grDevices::colorRampPalette(dat)(n)
-}
+broc <- function(n) .palette_wrapper("broc", n)
 
+#' @rdname batlow_palettes
 #' @export
-lajolla = function(n) {
-  dat = palette$lajolla
-  grDevices::colorRampPalette(dat)(n)
-}
+broc0 <- function(n) .palette_wrapper("brocO", n)
 
+#' @rdname batlow_palettes
 #' @export
-imola = function(n) {
-  dat = palette$imola
-  grDevices::colorRampPalette(dat)(n)
-}
+buda <- function(n) .palette_wrapper("buda", n)
 
+#' @rdname batlow_palettes
 #' @export
-lapaz = function(n) {
-  dat = palette$lapaz
-  grDevices::colorRampPalette(dat)(n)
-}
+bukavu <- function(n) .palette_wrapper("bukavu", n)
 
+#' @rdname batlow_palettes
 #' @export
-hawaii = function(n) {
-  dat = palette$hawaii
-  grDevices::colorRampPalette(dat)(n)
-}
+cork <- function(n) .palette_wrapper("cork", n)
 
+#' @rdname batlow_palettes
 #' @export
-lipari = function(n) {
-  dat = palette$lipari
-  grDevices::colorRampPalette(dat)(n)
-}
+corkO <- function(n) .palette_wrapper("corkO", n)
 
+#' @rdname batlow_palettes
 #' @export
-lisbon = function(n) {
-  dat = palette$lisbon
-  grDevices::colorRampPalette(dat)(n)
-}
+davos <- function(n) .palette_wrapper("davos", n)
 
+#' @rdname batlow_palettes
 #' @export
-managua = function(n) {
-  dat = palette$managua
-  grDevices::colorRampPalette(dat)(n)
-}
-#' @export
-navia = function(n) {
-  dat = palette$navia
-  grDevices::colorRampPalette(dat)(n)
-}
-#' @export
-naviaW = function(n) {
-  dat = palette$naviaW
-  grDevices::colorRampPalette(dat)(n)
-}
-#' @export
-nuuk = function(n) {
-  dat = palette$nuuk
-  grDevices::colorRampPalette(dat)(n)
-}
-#' @export
-oleron = function(n) {
-  dat = palette$oleron
-  grDevices::colorRampPalette(dat)(n)
-}
-#' @export
-oslo = function(n) {
-  dat = palette$oslo
-  grDevices::colorRampPalette(dat)(n)
-}
+devon <- function(n) .palette_wrapper("devon", n)
 
+#' @rdname batlow_palettes
 #' @export
-oslo = function(n) {
-  dat = palette$oslo
-  grDevices::colorRampPalette(dat)(n)
-}
+fes <- function(n) .palette_wrapper("fes", n)
 
+#' @rdname batlow_palettes
 #' @export
-roma = function(n) {
-  dat = palette$roma
-  grDevices::colorRampPalette(dat)(n)
-}
+glasgow <- function(n) .palette_wrapper("glasgow", n)
 
+#' @rdname batlow_palettes
 #' @export
-romaO = function(n) {
-  dat = palette$romaO
-  grDevices::colorRampPalette(dat)(n)
-}
+grayC <- function(n) .palette_wrapper("grayC", n)
 
+#' @rdname batlow_palettes
 #' @export
-tofino = function(n) {
-  dat = palette$tofino
-  grDevices::colorRampPalette(dat)(n)
-}
+hawaii <- function(n) .palette_wrapper("hawaii", n)
 
+#' @rdname batlow_palettes
 #' @export
-tokyo = function(n) {
-  dat = palette$tokyo
-  grDevices::colorRampPalette(dat)(n)
-}
+imola <- function(n) .palette_wrapper("imola", n)
 
+#' @rdname batlow_palettes
 #' @export
-turku = function(n) {
-  dat = palette$turku
-  grDevices::colorRampPalette(dat)(n)
-}
+lajolla <- function(n) .palette_wrapper("lajolla", n)
 
+#' @rdname batlow_palettes
 #' @export
-vanimo = function(n) {
-  dat = palette$vanimo
-  grDevices::colorRampPalette(dat)(n)
-}
+lapaz <- function(n) .palette_wrapper("lapaz", n)
 
+#' @rdname batlow_palettes
 #' @export
-vik = function(n) {
-  dat = palette$vik
-  grDevices::colorRampPalette(dat)(n)
-}
+lipari <- function(n) .palette_wrapper("lipari", n)
 
+#' @rdname batlow_palettes
 #' @export
-vikO = function(n) {
-  dat = palette$vikO
-  grDevices::colorRampPalette(dat)(n)
-}
+lisbon <- function(n) .palette_wrapper("lisbon", n)
 
+#' @rdname batlow_palettes
+#' @export
+managua <- function(n) .palette_wrapper("managua", n)
+
+#' @rdname batlow_palettes
+#' @export
+navia <- function(n) .palette_wrapper("navia", n)
+
+#' @rdname batlow_palettes
+#' @export
+naviaW <- function(n) .palette_wrapper("naviaW", n)
+
+#' @rdname batlow_palettes
+#' @export
+nuuk <- function(n) .palette_wrapper("nuuk", n)
+
+#' @rdname batlow_palettes
+#' @export
+oleron <- function(n) .palette_wrapper("oleron", n)
+
+#' @rdname batlow_palettes
+#' @export
+oslo <- function(n) .palette_wrapper("oslo", n)
+
+#' @rdname batlow_palettes
+#' @export
+roma <- function(n) .palette_wrapper("roma", n)
+
+#' @rdname batlow_palettes
+#' @export
+romaO <- function(n) .palette_wrapper("romaO", n)
+
+#' @rdname batlow_palettes
+#' @export
+tofino <- function(n) .palette_wrapper("tofino", n)
+
+#' @rdname batlow_palettes
+#' @export
+tokyo <- function(n) .palette_wrapper("tokyo", n)
+
+#' @rdname batlow_palettes
+#' @export
+turku <- function(n) .palette_wrapper("turku", n)
+
+#' @rdname batlow_palettes
+#' @export
+vanimo <- function(n) .palette_wrapper("vanimo", n)
+
+#' @rdname batlow_palettes
+#' @export
+vik <- function(n) .palette_wrapper("vik", n)
+
+#' @rdname batlow_palettes
+#' @export
+vikO <- function(n) .palette_wrapper("vikO", n)
